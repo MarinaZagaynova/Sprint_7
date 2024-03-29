@@ -2,6 +2,8 @@ import requests
 import random
 import string
 
+from endpoints import Endpoints
+
 
 def generate_random_string(length):
     letters = string.ascii_lowercase
@@ -22,7 +24,7 @@ def register_new_courier_and_return_login_password():
         "firstName": first_name
     }
 
-    response = requests.post('https://qa-scooter.praktikum-services.ru/api/v1/courier', data=payload)
+    response = requests.post(Endpoints.create_courier, data=payload)
 
     if response.status_code == 201:
         login_pass.append(login)
@@ -33,17 +35,17 @@ def register_new_courier_and_return_login_password():
 
 
 logins = register_new_courier_and_return_login_password()
-payload_one_for_registration = {
+payload_without_login_for_registration = {
     "password": generate_random_string(10),
     "firstName": generate_random_string(10)
 }
 
-payload_two_for_registration = {
+payload_without_password_for_registration = {
     "login": generate_random_string(10),
-    "name": generate_random_string(10)
+    "firstName": generate_random_string(10)
 }
 
-payload_three_for_registration = {}
+payload_empty_for_registration = {}
 
 payload_correct_for_registration = {
     "login": generate_random_string(10),
@@ -51,26 +53,20 @@ payload_correct_for_registration = {
     "firstName": generate_random_string(10)
 }
 
-payload_one_for_authorization = {
+payload_without_password_for_authorization = {
     "login": logins[0],
 }
 
-payload_two_for_authorization = {
+payload_without_login_for_authorization = {
     "password": logins[1]
 }
 
-payload_three_for_authorization = {}
+payload_empty_for_authorization = {}
 
 payload_correct_for_authorization ={
     "login": logins[0],
     "password": logins[1],
 }
-
-# login = generate_random_string(10)
-# password = generate_random_string(10)
-# first_name = generate_random_string(10)
-# logins = register_new_courier_and_return_login_password()
-
 
 color_black = ["BLACK"]
 color_gray = ['GREY']
