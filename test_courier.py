@@ -47,7 +47,7 @@ class TestsCourier:
         assert response.text == '{"code":400,"message":"Недостаточно данных для создания учетной записи"}'
 
     @allure.title(
-        'Проверка эндпоинта регистрации курьера с корректными входнымипараметрами. В ответе код 201 и текст = "ok":true')
+        'Проверка эндпоинта регистрации курьера с корректными входными параметрами. В ответе код 201 и текст = "ok":true')
     def test_correct_code(self):
         response = requests.post(Endpoints.create_courier,
                                  data=helps.payload_correct_for_registration)
